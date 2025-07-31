@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 echo "▶ Starting setup.sh..."
 
-set -e          # stop on first error
+set -e  # stop on first error
 set -x  # Print all commands as they're executed
 set -o pipefail # catch errors in pipes
 
@@ -62,8 +62,8 @@ clone_and_install_interpol https://github.com/Fannovel16/ComfyUI-Frame-Interpola
 clone_and_install https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite "$CUSTOM/comfyui-videohelpersuite"
 clone_and_install https://github.com/city96/ComfyUI-GGUF "$CUSTOM/ComfyUI-GGUF"
 
-download https://huggingface.co/city96/Wan2.1-I2V-14B-480P-gguf/resolve/main/wan2.1-i2v-14b-480p-Q4_0.gguf  \
-         "$MODELS_DIR/diffusion_models/wan2.1-i2v-14b-480p-Q4_0.gguf"
+download https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/diffusion_models/wan2.2_ti2v_5B_fp16.safetensors  \
+         "$MODELS_DIR/diffusion_models/wan2.2_ti2v_5B_fp16.safetensors"
 
 download https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors \
          "$MODELS_DIR/text_encoders/umt5_xxl_fp8_e4m3fn_scaled.safetensors"
@@ -71,27 +71,27 @@ download https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/mai
 download https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/clip_vision/clip_vision_h.safetensors \
          "$MODELS_DIR/clip_vision/clip_vision_h.safetensors"
 
-download https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/main/split_files/vae/wan_2.1_vae.safetensors \
-         "$MODELS_DIR/vae/wan_2.1_vae.safetensors"
+download https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/vae/wan2.2_vae.safetensors \
+         "$MODELS_DIR/vae/wan2.2_vae.safetensors"
 
 download https://huggingface.co/skbhadra/ClearRealityV1/resolve/bc01e27b38eec683dc6e3161dd56069c78e015ac/4x-ClearRealityV1.pth \
          "$MODELS_DIR/upscale_models/4x-ClearRealityV1.pth"
 
-# Copy WAN workflow JSON into user/default/workflows
-WORKFLOW_SRC="/asd/src/Wan.json"
-WORKFLOW_DEST="$BASE/user/default/workflows/Wan.json"
+# Copy WAN2.2 workflow JSON into user/default/workflows
+WORKFLOW_SRC="/asd/src/video_wan2_2_5B_ti2v.json"
+WORKFLOW_DEST="$BASE/user/default/workflows/video_wan2_2_5B_ti2v.json"
 
 mkdir -p "$(dirname "$WORKFLOW_DEST")"
 
 if [ -f "$WORKFLOW_SRC" ]; then
   if [ ! -f "$WORKFLOW_DEST" ]; then
-    echo "▶ Copying Wan.json workflow to default location …"
+    echo "▶ Copying video_wan2_2_5B_ti2v.json workflow to default location …"
     cp "$WORKFLOW_SRC" "$WORKFLOW_DEST"
   else
-    echo "✅ Wan.json already exists at destination, skipping copy."
+    echo "✅ video_wan2_2_5B_ti2v.json already exists at destination, skipping copy."
   fi
 else
-  echo "⚠ Wan.json not found at $WORKFLOW_SRC"
+  echo "⚠ video_wan2_2_5B_ti2v.json not found at $WORKFLOW_SRC"
 fi
 
 # ────────────────────────────────────────────────────────────
