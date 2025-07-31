@@ -2,7 +2,7 @@
 
 # Base image -> https://github.com/runpod/containers/blob/main/official-templates/base/Dockerfile
 # DockerHub -> https://hub.docker.com/r/runpod/base/tags
-FROM runpod/pytorch:2.8.0-py3.11-cuda12.8.1-cudnn-devel-ubuntu22.04
+FROM runpod/pytorch:2.4.0-py3.11-cuda12.4.1-devel-ubuntu22.04
 
 # The RunPod base image pre-installs many system dependencies to help you get started quickly.
 # Check the base image's Dockerfile before adding more dependencies.
@@ -15,7 +15,7 @@ FROM runpod/pytorch:2.8.0-py3.11-cuda12.8.1-cudnn-devel-ubuntu22.04
 
 RUN python -m pip install --upgrade pip
 # RUN pip install --no-cache-dir \
-#     torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu128
+#     torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
 
 ADD . /asd/
 RUN chmod +x /asd/src/setup.sh
