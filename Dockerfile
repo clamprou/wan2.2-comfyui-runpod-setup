@@ -13,13 +13,20 @@ FROM runpod/pytorch:2.8.0-py3.11-cuda12.8.1-cudnn-devel-ubuntu22.04
 # You must override the base image in runpod.toml with an image that includes your dependencies
 # for changes to propagate to your Project pod.
 
+RUN curl -fsSL https://deb.nodesource.com/setup_current.x | bash - \
+ && apt-get install -y nodejs
+
 RUN python -m pip install --upgrade pip
+
 # RUN pip install --no-cache-dir \
 #     torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu128
 
 ADD . /asd/
 RUN chmod +x /asd/src/setup.sh
+ENV N8N_USER_FOLDER=/workspace/.n8n
 
 EXPOSE 8188
+EXPOSE 8888
+EXPOSE 5678
 
 ENTRYPOINT ["/asd/src/setup.sh"]

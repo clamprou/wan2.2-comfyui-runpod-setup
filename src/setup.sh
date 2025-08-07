@@ -74,9 +74,6 @@ download https://huggingface.co/Comfy-Org/Wan_2.1_ComfyUI_repackaged/resolve/mai
 download https://huggingface.co/Comfy-Org/Wan_2.2_ComfyUI_Repackaged/resolve/main/split_files/vae/wan2.2_vae.safetensors \
          "$MODELS_DIR/vae/wan2.2_vae.safetensors"
 
-download https://huggingface.co/skbhadra/ClearRealityV1/resolve/bc01e27b38eec683dc6e3161dd56069c78e015ac/4x-ClearRealityV1.pth \
-         "$MODELS_DIR/upscale_models/4x-ClearRealityV1.pth"
-
 # Copy WAN2.2 workflow JSON into user/default/workflows
 WORKFLOW_SRC="/asd/src/video_wan2_2_5B_ti2v.json"
 WORKFLOW_DEST="$BASE/user/default/workflows/video_wan2_2_5B_ti2v.json"
@@ -93,6 +90,14 @@ if [ -f "$WORKFLOW_SRC" ]; then
 else
   echo "⚠ video_wan2_2_5B_ti2v.json not found at $WORKFLOW_SRC"
 fi
+
+echo "▶ Starting Jupyter …"
+jupyter notebook --ip=0.0.0.0 --port=8888 --allow-root --NotebookApp.token='' --NotebookApp.password='' &
+
+echo "▶ Starting n8n …"
+mkdir -p /workspace/.n8n
+npm install -g n8n
+n8n start --tunnel &
 
 # ────────────────────────────────────────────────────────────
 # Launch ComfyUI (Gradio) – listens on 0.0.0.0 for Docker/RunPod
