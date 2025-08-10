@@ -96,8 +96,7 @@ jupyter notebook --ip=0.0.0.0 --port=8888 --allow-root --NotebookApp.token='' --
 
 echo "▶ Starting n8n …"
 mkdir -p /workspace/.n8n
-npm install -g n8n
-n8n start --tunnel &
+npx --yes n8n start --tunnel --userFolder /workspace/.n8n &
 
 # ────────────────────────────────────────────────────────────
 # Launch ComfyUI (Gradio) – listens on 0.0.0.0 for Docker/RunPod
