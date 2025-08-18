@@ -91,8 +91,9 @@ else
   echo "⚠ video_wan2_2_5B_ti2v.json not found at $WORKFLOW_SRC"
 fi
 
+# Lunch Juputer
 echo "▶ Starting Jupyter …"
-jupyter notebook --ip=0.0.0.0 --port=8888 --allow-root --NotebookApp.token='' --NotebookApp.password='' &
+jupyter lab --ip=0.0.0.0 --port=8888 --allow-root --NotebookApp.allow_origin="*" --ServerApp.allow_remote_access=True --NotebookApp.token='' --NotebookApp.password='' &
 
 echo "▶ Starting n8n …"
 mkdir -p /workspace/.n8n
