@@ -6,6 +6,10 @@ set -x  # Print all commands as they're executed
 set -o pipefail # catch errors in pipes
 
 # ────────────────────────────────────────────────────────────
+# Setup Env variables for n8n
+export WEBHOOK_URL="https://$RUNPOD_POD_ID-5678.proxy.runpod.net"
+export N8N_EDITOR_BASE_URL="https://$RUNPOD_POD_ID-5678.proxy.runpod.net"
+# ────────────────────────────────────────────────────────────
 # CONFIG
 BASE=/workspace/ComfyUI
 MODELS_DIR="$BASE/models"
@@ -96,8 +100,7 @@ echo "▶ Starting Jupyter …"
 jupyter lab --ip=0.0.0.0 --port=8888 --allow-root --NotebookApp.allow_origin="*" --ServerApp.allow_remote_access=True --NotebookApp.token='' --NotebookApp.password='' &
 
 echo "▶ Starting n8n …"
-mkdir -p /workspace/.n8n
-npx --yes n8n start --tunnel --userFolder /workspace/.n8n &
+npx --yes n8n start &
 
 # ────────────────────────────────────────────────────────────
 # Launch ComfyUI (Gradio) – listens on 0.0.0.0 for Docker/RunPod
